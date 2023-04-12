@@ -106,7 +106,7 @@
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             android:text="0 €"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/green_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleImporte" />
@@ -131,8 +131,6 @@
 
         <SeekBar
             android:id="@+id/sbImporte"
-            android:progressTint="@color/purple_500"
-            android:thumbTint="@color/purple_500"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -217,7 +215,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@color/purple_200"
             android:text="Aplicar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

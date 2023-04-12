@@ -32,16 +32,12 @@ class FacturaViewModel: ViewModel() {
                 list = FacturaRepository.getList()
             else {
                 if (fechaDesde.equals("día/mes/año") && fechaHasta.equals("día/mes/año"))
-                    list = FacturaRepository.getListFilteredImporte(importeMaxSelected)
-                        .filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
+                    list = FacturaRepository.getListFilteredImporte(importeMaxSelected).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
                 else if (fechaDesde.equals("día/mes/año") && !fechaHasta.equals("día/mes/año") )
-                    list = FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta)
-                        .filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
+                    list = FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
                 else
-                    list = FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta)
-                        .filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
+                    list = FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
             }
-
             if (list.isEmpty())
                 liveDataList.setNoData()
             else

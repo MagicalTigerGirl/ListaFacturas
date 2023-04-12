@@ -3,6 +3,7 @@ package com.example.listafacturas.data.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.example.listafacturas.R
 import com.example.listafacturas.databinding.ItemFacturaBinding
@@ -49,6 +50,7 @@ class FacturaAdapter(listener: OnManageFacturaListener): RecyclerView.Adapter<Fa
             val estado: String = factura.descEstado
             if (estado.equals("Pendiente de pago"))
                 binding.tvEstado.text = estado
+
             binding.tvImporte.text = "${factura.importeOrdenacion.toString()} €"
 
             itemView.setOnClickListener(View.OnClickListener { listener.onShowFactura(factura) })
