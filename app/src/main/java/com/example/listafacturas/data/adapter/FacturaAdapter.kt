@@ -42,7 +42,7 @@ class FacturaAdapter(listener: OnManageFacturaListener): RecyclerView.Adapter<Fa
         fun bind(factura: Factura, listener: OnManageFacturaListener) {
             val formato1 = SimpleDateFormat("d", Locale("es", "ES"))
             val formato2 = SimpleDateFormat("MMM yyyy", Locale("es", "ES"))
-            val date: Date = Date(factura.fecha)
+            val date: Date = SimpleDateFormat("dd/MM/yyyy", Locale("en", "US")).parse(factura.fecha) as Date
 
             binding.tvFecha.text = formato1.format(date).plus(" ").plus(formato2.format(date).substring(0,1).uppercase()).plus(formato2.format(date).substring(1))
 

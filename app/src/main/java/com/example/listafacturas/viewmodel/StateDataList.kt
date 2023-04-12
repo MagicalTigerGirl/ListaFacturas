@@ -6,6 +6,7 @@ class StateDataList<T> {
         LOADING,
         NODATA,
         SUCCESS,
+        FILTERED,
         COMPLETE
     }
 
@@ -31,6 +32,12 @@ class StateDataList<T> {
 
     fun success(data: T): StateDataList<T> {
         this.state = DataState.SUCCESS
+        this.data = data
+        return this
+    }
+
+    fun filtered(data: T): StateDataList<T> {
+        this.state = DataState.FILTERED
         this.data = data
         return this
     }

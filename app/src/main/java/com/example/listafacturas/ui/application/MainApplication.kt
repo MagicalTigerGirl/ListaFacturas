@@ -2,24 +2,14 @@ package com.example.listafacturas.ui.application
 
 import android.app.Application
 import android.content.Context
+import com.example.listafacturas.data.FacturasDatabase
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
-class MainApplication : Application() {
-
-    init {
-        instance = this
-    }
-
-    companion object {
-        private var instance: MainApplication? = null
-
-        fun applicationContext() : Context {
-            return instance!!.applicationContext
-        }
-    }
+class MainApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        val context: Context = MainApplication.applicationContext()
+        FacturasDatabase.create(applicationContext)
     }
 }

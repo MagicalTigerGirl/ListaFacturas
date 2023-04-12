@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="pendiente_pago">Pendiente de pago</string>
+    <string name="date_inicial">día/mes/año</string>
 </resources>
