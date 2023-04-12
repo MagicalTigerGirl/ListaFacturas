@@ -125,7 +125,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="10 €"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvImporte" />
 
@@ -166,6 +165,7 @@
 
         <CheckBox
             android:id="@+id/cbPagadas"
+            android:checked="@={viewmodel.BPagadas}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -176,6 +176,7 @@
 
         <CheckBox
             android:id="@+id/cbAnuladas"
+            android:checked="@={viewmodel.BAnuladas}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -185,6 +186,7 @@
 
         <CheckBox
             android:id="@+id/cbCuotaFija"
+            android:checked="@={viewmodel.BCuotaFija}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -194,6 +196,7 @@
 
         <CheckBox
             android:id="@+id/cbPendientePago"
+            android:checked="@={viewmodel.BPendientePagos}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -203,6 +206,7 @@
 
         <CheckBox
             android:id="@+id/cbPlanPago"
+            android:checked="@={viewmodel.BPlanPago}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

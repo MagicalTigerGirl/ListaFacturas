@@ -1,10 +1,12 @@
 package com.example.listafacturas.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.listafacturas.data.model.Factura
 import com.example.listafacturas.data.FacturaRepository
+import com.example.listafacturas.data.model.Factura
 import kotlinx.coroutines.launch
+
 
 class FacturaViewModel: ViewModel() {
 
@@ -31,13 +33,14 @@ class FacturaViewModel: ViewModel() {
             if (!isFiltered)
                 list = FacturaRepository.getList()
             else {
-                if (fechaDesde.equals("día/mes/año") && fechaHasta.equals("día/mes/año"))
-                    list = FacturaRepository.getListFilteredImporte(importeMaxSelected).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
-                else if (fechaDesde.equals("día/mes/año") && !fechaHasta.equals("día/mes/año") )
-                    list = FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
-                else
-                    list = FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos || it.descEstado.equals("Pagada") && bPagadas }
+                when (result.value) {
+                    FilterResult.IMPORTE -> list = FacturaRepository.getListFilteredImporte(importeMaxSelected).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                    FilterResult.IMPORTEHASTA -> list = FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                    FilterResult.ALL -> list = FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                    else -> {}
+                }
             }
+
             if (list.isEmpty())
                 liveDataList.setNoData()
             else
@@ -57,9 +60,20 @@ class FacturaViewModel: ViewModel() {
     var importeMaxSelected: Int = 0
 
     // Checkbox
-    var bPagadas = false
-    var bAnuladas = false
-    var bCuotaFija = false
-    var bPendientePagos = false
-    var bPlanPago = false
+    var bPagadas: MutableLiveData<Boolean> = MutableLiveData()
+    var bAnuladas: MutableLiveData<Boolean> = MutableLiveData()
+    var bCuotaFija: MutableLiveData<Boolean> = MutableLiveData()
+    var bPendientePagos: MutableLiveData<Boolean> = MutableLiveData()
+    var bPlanPago: MutableLiveData<Boolean> = MutableLiveData()
+
+    var result: MutableLiveData<FilterResult> = MutableLiveData()
+
+    fun filter() {
+        if (fechaDesde.equals("día/mes/año") && fechaHasta.equals("día/mes/año"))
+            result.value = FilterResult.IMPORTE
+        else if (fechaDesde.equals("día/mes/año") && !fechaHasta.equals("día/mes/año"))
+            result.value = FilterResult.IMPORTEHASTA
+        else
+            result.value = FilterResult.ALL
+    }
 }

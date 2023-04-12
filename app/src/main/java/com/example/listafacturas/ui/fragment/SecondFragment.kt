@@ -79,12 +79,7 @@ class SecondFragment : Fragment() {
             // Importe
             viewModel.importeMaxSelected = binding.sbImporte.progress
 
-            // Checkbox
-            viewModel.bPagadas = binding.cbPagadas.isChecked
-            viewModel.bAnuladas = binding.cbAnuladas.isChecked
-            viewModel.bCuotaFija = binding.cbCuotaFija.isChecked
-            viewModel.bPendientePagos = binding.cbPendientePago.isChecked
-            viewModel.bPlanPago = binding.cbPlanPago.isChecked
+            viewModel.filter()
 
             NavHostFragment.findNavController(this).navigateUp()
         })
@@ -152,13 +147,6 @@ class SecondFragment : Fragment() {
 
         binding.viewmodel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-        // Checkbox
-        binding.cbPendientePago.isChecked = viewModel.bPendientePagos
-        binding.cbPagadas.isChecked = viewModel.bPagadas
-        binding.cbAnuladas.isChecked = viewModel.bAnuladas
-        binding.cbCuotaFija.isChecked = viewModel.bCuotaFija
-        binding.cbPlanPago.isChecked = viewModel.bPlanPago
 
         // DatePicker
         binding.btnDateDesde.text = viewModel.fechaDesde
