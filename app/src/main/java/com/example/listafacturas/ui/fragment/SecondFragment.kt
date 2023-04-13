@@ -63,7 +63,7 @@ class SecondFragment : Fragment() {
 
         initSeekBar()
 
-        binding.buttonSecond.setOnClickListener(View.OnClickListener {
+        binding.btnAplicarFiltros.setOnClickListener(View.OnClickListener {
 
             viewModel.isFiltered = true
 
@@ -82,6 +82,15 @@ class SecondFragment : Fragment() {
             viewModel.filter()
 
             NavHostFragment.findNavController(this).navigateUp()
+        })
+
+        binding.btnEliminarFiltros.setOnClickListener(View.OnClickListener {
+            Toast.makeText(context, "Hola", Toast.LENGTH_SHORT).show()
+            viewModel.fechaDesde = "día/mes/año"
+            viewModel.fechaHasta = "día/mes/año"
+            binding.btnDateDesde.text = viewModel.fechaDesde
+            binding.btnDateHasta.text = viewModel.fechaHasta
+            binding.sbImporte.progress = FacturaRepository.importeMaximo.toInt()
         })
     }
 
