@@ -14,8 +14,4 @@ class StateLiveDataList<T>: MutableLiveData<StateDataList<T>>() {
     fun setSuccess(data: T) {
         value = StateDataList<T>().success(data)
     }
-
-    fun setFiltered(data: T) {
-        value = StateDataList<T>().filtered(data)
-    }
 }

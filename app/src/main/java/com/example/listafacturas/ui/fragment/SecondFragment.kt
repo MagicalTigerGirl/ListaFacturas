@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -78,10 +77,7 @@ class SecondFragment : Fragment() {
             // Importe
             viewModel.importeMaxSelected = binding.sbImporte.progress
 
-            if (viewModel.bPagadas.value == true || viewModel.bAnuladas.value == true || viewModel.bCuotaFija.value == true || viewModel.bPendientePagos.value == true || viewModel.bPlanPago.value == true)
-                viewModel.isChecked = true
-            else
-                viewModel.isChecked = false
+            viewModel.isChecked = viewModel.bPagadas.value == true || viewModel.bAnuladas.value == true || viewModel.bCuotaFija.value == true || viewModel.bPendientePagos.value == true || viewModel.bPlanPago.value == true
 
             viewModel.filter()
 
@@ -89,7 +85,6 @@ class SecondFragment : Fragment() {
         })
 
         binding.btnEliminarFiltros.setOnClickListener(View.OnClickListener {
-            Toast.makeText(context, "Hola", Toast.LENGTH_SHORT).show()
             viewModel.fechaDesde = viewModel.dateInit
             viewModel.fechaHasta = viewModel.dateInit
             binding.btnDateDesde.text = viewModel.fechaDesde

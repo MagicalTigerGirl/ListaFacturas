@@ -84,7 +84,7 @@ class FirstFragment : Fragment(), FacturaAdapter.OnManageFacturaListener {
 
     override fun onShowFactura(factura: Factura) {
         val bundle = Bundle()
-        bundle.putString(BaseDialogFragment.TITLE, "Información")
+        bundle.putString(BaseDialogFragment.TITLE, "Información (${factura.fecha})")
         bundle.putString(BaseDialogFragment.MESSAGE, "Esta funcionalidad aún no está disponible")
 
         NavHostFragment.findNavController(this).navigate(R.id.action_FirstFragment_to_baseDialogFragment, bundle)
