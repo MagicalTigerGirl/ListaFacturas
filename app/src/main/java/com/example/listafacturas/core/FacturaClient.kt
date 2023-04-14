@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object FacturaClient {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://viewnextandroid.mocklab.io/")
+        .baseUrl("https://viewnextandroid.wiremockapi.cloud/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

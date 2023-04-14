@@ -17,7 +17,8 @@ class FacturaViewModel: ViewModel() {
             val list: List<Factura> = FacturaRepository.getAllFacturas()
             FacturaRepository.deleteAll()
             FacturaRepository.insertListDatabase(list)
-            FacturaRepository.importeMaximo = list.stream().max(Comparator.comparing(Factura::importeOrdenacion)).get().importeOrdenacion+1
+            if (!list.isEmpty())
+                FacturaRepository.importeMaximo = list.stream().max(Comparator.comparing(Factura::importeOrdenacion)).get().importeOrdenacion+1
 
             importeMaxSelected = FacturaRepository.importeMaximo.toInt()
         }
@@ -34,9 +35,24 @@ class FacturaViewModel: ViewModel() {
                 list = FacturaRepository.getList()
             else {
                 when (result.value) {
-                    FilterResult.IMPORTE -> list = FacturaRepository.getListFilteredImporte(importeMaxSelected).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
-                    FilterResult.IMPORTEHASTA -> list = FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
-                    FilterResult.ALL -> list = FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                    FilterResult.IMPORTE ->  {
+                        list = if (isChecked)
+                            FacturaRepository.getListFilteredImporte(importeMaxSelected).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                        else
+                            FacturaRepository.getListFilteredImporte(importeMaxSelected)
+                    }
+                    FilterResult.IMPORTEHASTA ->  {
+                        list = if (isChecked)
+                            FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                        else
+                            FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta)
+                    }
+                    FilterResult.ALL -> {
+                        list = if (isChecked)
+                            FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                        else
+                            FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta)
+                    }
                     else -> {}
                 }
             }
@@ -58,6 +74,8 @@ class FacturaViewModel: ViewModel() {
 
     // Seekbar
     var importeMaxSelected: Int = 0
+
+    var isChecked:  Boolean = false
 
     // Checkbox
     var bPagadas: MutableLiveData<Boolean> = MutableLiveData()

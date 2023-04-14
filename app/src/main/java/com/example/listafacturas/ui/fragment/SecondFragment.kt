@@ -79,6 +79,11 @@ class SecondFragment : Fragment() {
             // Importe
             viewModel.importeMaxSelected = binding.sbImporte.progress
 
+            if (viewModel.bPagadas.value == true || viewModel.bAnuladas.value == true || viewModel.bCuotaFija.value == true || viewModel.bPendientePagos.value == true || viewModel.bPlanPago.value == true)
+                viewModel.isChecked = true
+            else
+                viewModel.isChecked = false
+
             viewModel.filter()
 
             NavHostFragment.findNavController(this).navigateUp()
