@@ -1,6 +1,4 @@
 
-q
-Aapp/src/main/java/com/example/listafacturas/core/FacturaClient.kt,5\1\51f33777f347c6438dc6bb8301c2526eb202262e
 r
 Bapp/src/main/java/com/example/listafacturas/data/dao/FacturaDao.kt,a\c\ac2b7f45e06b8310c5d6557d078c43fd6ddbf848
 q

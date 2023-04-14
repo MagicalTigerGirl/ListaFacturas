@@ -25,4 +25,5 @@
     <string name="cb_plan_pago">Plan de pago</string>
     <string name="btn_aplicar">Aplicar</string>
     <string name="btn_eliminar_filtros">Eliminar filtros</string>
+    <string name="no_datos">NO HAY DATOS</string>
 </resources>

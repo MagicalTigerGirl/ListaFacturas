@@ -133,6 +133,8 @@ class SecondFragment : Fragment() {
                 binding.btnDateDesde.text = ("$days/$months/$year")
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
 
+            popup.datePicker.maxDate = Calendar.getInstance().timeInMillis
+
             popup.show()
         })
 
