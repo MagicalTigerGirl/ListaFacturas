@@ -12,6 +12,8 @@ class FacturaViewModel: ViewModel() {
 
     var liveDataList: StateLiveDataList<List<Factura>> = StateLiveDataList()
 
+    val dateInit: String = "día/mes/año"
+
     init {
         viewModelScope.launch {
             val list: List<Factura> = FacturaRepository.getAllFacturas()
@@ -29,31 +31,30 @@ class FacturaViewModel: ViewModel() {
         viewModelScope.launch {
             liveDataList.setLoading()
 
-            var list: List<Factura> = emptyList()
+            val list: List<Factura>
 
-            if (!isFiltered)
+            if (!isFiltered) {
                 list = FacturaRepository.getList()
-            else {
+            } else {
+                val filteredList: List<Factura>
                 when (result.value) {
                     FilterResult.IMPORTE ->  {
-                        list = if (isChecked)
-                            FacturaRepository.getListFilteredImporte(importeMaxSelected).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
-                        else
-                            FacturaRepository.getListFilteredImporte(importeMaxSelected)
+                        filteredList = FacturaRepository.getListFilteredImporte(importeMaxSelected)
                     }
                     FilterResult.IMPORTEHASTA ->  {
-                        list = if (isChecked)
-                            FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
-                        else
-                            FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta)
+                        filteredList = FacturaRepository.getListFilteredAllHasta(importeMaxSelected, fechaHasta)
                     }
                     FilterResult.ALL -> {
-                        list = if (isChecked)
-                            FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta).filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
-                        else
-                            FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta)
+                        filteredList = FacturaRepository.getListFilteredAll(importeMaxSelected, fechaDesde, fechaHasta)
                     }
-                    else -> {}
+                    else -> {
+                        filteredList = emptyList()
+                    }
+                }
+                list = if (isChecked) {
+                    filteredList.filter { it.descEstado.equals("Pendiente de pago") && bPendientePagos.value == true || it.descEstado.equals("Pagada") && bPagadas.value == true }
+                } else {
+                    filteredList
                 }
             }
 
@@ -69,8 +70,8 @@ class FacturaViewModel: ViewModel() {
     var isFiltered = false
 
     // Fechas DatePicker
-    var fechaDesde: String = "día/mes/año"
-    var fechaHasta: String = "día/mes/año"
+    var fechaDesde: String = dateInit
+    var fechaHasta: String = dateInit
 
     // Seekbar
     var importeMaxSelected: Int = 0
@@ -87,9 +88,9 @@ class FacturaViewModel: ViewModel() {
     var result: MutableLiveData<FilterResult> = MutableLiveData()
 
     fun filter() {
-        if (fechaDesde.equals("día/mes/año") && fechaHasta.equals("día/mes/año"))
+        if (fechaDesde.equals(dateInit) && fechaHasta.equals(dateInit))
             result.value = FilterResult.IMPORTE
-        else if (fechaDesde.equals("día/mes/año") && !fechaHasta.equals("día/mes/año"))
+        else if (fechaDesde.equals(dateInit) && !fechaHasta.equals(dateInit))
             result.value = FilterResult.IMPORTEHASTA
         else
             result.value = FilterResult.ALL

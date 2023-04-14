@@ -1,7 +1,6 @@
 package com.example.listafacturas.ui.fragment
 
 import android.app.DatePickerDialog
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.*
 import android.widget.SeekBar
@@ -69,11 +68,11 @@ class SecondFragment : Fragment() {
 
             // Fechas
             val fechaDesde = binding.btnDateDesde.text.toString()
-            if (!fechaDesde.equals("día/mes/año"))
+            if (!fechaDesde.equals(viewModel.dateInit))
                 viewModel.fechaDesde = fechaDesde
 
             val fechaHasta = binding.btnDateHasta.text.toString()
-            if (!fechaHasta.equals("día/mes/año"))
+            if (!fechaHasta.equals(viewModel.dateInit))
                 viewModel.fechaHasta = fechaHasta
 
             // Importe
@@ -91,8 +90,8 @@ class SecondFragment : Fragment() {
 
         binding.btnEliminarFiltros.setOnClickListener(View.OnClickListener {
             Toast.makeText(context, "Hola", Toast.LENGTH_SHORT).show()
-            viewModel.fechaDesde = "día/mes/año"
-            viewModel.fechaHasta = "día/mes/año"
+            viewModel.fechaDesde = viewModel.dateInit
+            viewModel.fechaHasta = viewModel.dateInit
             binding.btnDateDesde.text = viewModel.fechaDesde
             binding.btnDateHasta.text = viewModel.fechaHasta
             binding.sbImporte.progress = FacturaRepository.importeMaximo.toInt()
@@ -110,8 +109,12 @@ class SecondFragment : Fragment() {
 
         binding.sbImporte.setOnSeekBarChangeListener(
             object : OnSeekBarChangeListener {
-                override fun onStopTrackingTouch(seekBar: SeekBar) {}
-                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    // Cuando se deja de mover el SeekBar
+                }
+                override fun onStartTrackingTouch(seekBar: SeekBar) {
+                    // Cuando se comienza a mover el SeekBar
+                }
                 override fun onProgressChanged(
                     seekBar: SeekBar, progress: Int,
                     fromUser: Boolean
@@ -126,7 +129,7 @@ class SecondFragment : Fragment() {
         binding.btnDateDesde.setOnClickListener(View.OnClickListener {
             val c = Calendar.getInstance()
 
-            val popup= DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, year, monthOfYear, dayOfMonth ->
+            val popup= DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ _, year, monthOfYear, dayOfMonth ->
                 val days = if (dayOfMonth < 10) "0${dayOfMonth}" else "${dayOfMonth}"
 
                 val month = monthOfYear+1
@@ -141,7 +144,7 @@ class SecondFragment : Fragment() {
         binding.btnDateHasta.setOnClickListener(View.OnClickListener {
             val c = Calendar.getInstance()
 
-            val popup= DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ view, year, monthOfYear, dayOfMonth ->
+            val popup= DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener{ _, year, monthOfYear, dayOfMonth ->
                 val days = if (dayOfMonth < 10) "0${dayOfMonth}" else "${dayOfMonth}"
 
                 val month = monthOfYear+1
