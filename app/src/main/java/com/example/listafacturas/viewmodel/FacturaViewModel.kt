@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.listafacturas.data.FacturaRepository
 import com.example.listafacturas.data.model.Factura
+import com.example.listafacturas.domain.GetFacturasUseCase
 import kotlinx.coroutines.launch
 
 
@@ -13,29 +14,28 @@ class FacturaViewModel: ViewModel() {
     var liveDataList: StateLiveDataList<List<Factura>> = StateLiveDataList()
 
     val dateInit: String = "día/mes/año"
+    private var getFacturasUseCase = GetFacturasUseCase()
+
+    var list: List<Factura> = emptyList()
 
     init {
         viewModelScope.launch {
-            val list: List<Factura> = FacturaRepository.getAllFacturas()
-            FacturaRepository.deleteAll()
-            FacturaRepository.insertListDatabase(list)
-            if (!list.isEmpty())
-                FacturaRepository.importeMaximo = list.stream().max(Comparator.comparing(Factura::importeOrdenacion)).get().importeOrdenacion+1
-
-            importeMaxSelected = FacturaRepository.importeMaximo.toInt()
+            list = getFacturasUseCase()
+            if (list.isEmpty())
+                liveDataList.setNoData()
+            else {
+                liveDataList.setSuccess(list)
+                importeMaxSelected = FacturaRepository.importeMaximo.toInt()
+            }
         }
     }
 
     fun getDataList() {
+        liveDataList.setLoading()
 
         viewModelScope.launch {
-            liveDataList.setLoading()
 
-            val list: List<Factura>
-
-            if (!isFiltered) {
-                list = FacturaRepository.getList()
-            } else {
+            if (isFiltered) {
                 val filteredList: List<Factura>
                 when (result.value) {
                     FilterResult.IMPORTE ->  {

@@ -25,13 +25,17 @@ object FacturaRepository {
         }
     }
 
-    suspend fun insertListDatabase(list: List<Factura>) {
+    fun getAllFacturasRoom(): List<Factura> {
+        return facturaDao!!.select()
+    }
+
+    suspend fun insertAllRoom(list: List<Factura>) {
         withContext(dispatcher) {
             FacturasDatabase.dataBase!!.facturaDao()?.insert(list)
         }
     }
 
-    suspend fun deleteAll() {
+    suspend fun deleteAllRoom() {
         withContext(dispatcher) {
             FacturasDatabase.dataBase!!.facturaDao()?.deleteAll()
         }

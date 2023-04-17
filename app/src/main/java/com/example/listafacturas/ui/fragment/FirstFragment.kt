@@ -74,7 +74,10 @@ class FirstFragment : Fragment(), FacturaAdapter.OnManageFacturaListener {
 
         viewModel.liveDataList.observe(viewLifecycleOwner, Observer {
             when (it.state) {
-                StateDataList.DataState.SUCCESS -> adapter.update(it.data)
+                StateDataList.DataState.SUCCESS ->  {
+                    adapter.update(it.data)
+                    binding.tvNoData.visibility = View.INVISIBLE
+                }
                 StateDataList.DataState.NODATA -> binding.tvNoData.visibility = View.VISIBLE
                 else -> {
                     StateDataList.DataState.ERROR
@@ -82,7 +85,8 @@ class FirstFragment : Fragment(), FacturaAdapter.OnManageFacturaListener {
             }
         })
 
-        viewModel.getDataList()
+        if (viewModel.isFiltered)
+            viewModel.getDataList()
     }
 
     override fun onDestroyView() {
