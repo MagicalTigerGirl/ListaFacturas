@@ -85,11 +85,20 @@ class SecondFragment : Fragment() {
         })
 
         binding.btnEliminarFiltros.setOnClickListener(View.OnClickListener {
+
+            // DatePicker
             viewModel.fechaDesde = viewModel.dateInit
             viewModel.fechaHasta = viewModel.dateInit
             binding.btnDateDesde.text = viewModel.fechaDesde
             binding.btnDateHasta.text = viewModel.fechaHasta
             binding.sbImporte.progress = FacturaRepository.importeMaximo.toInt()
+
+            // Checkbox
+            binding.viewmodel?.bPagadas?.value = false
+            binding.viewmodel?.bAnuladas?.value = false
+            binding.viewmodel?.bCuotaFija?.value = false
+            binding.viewmodel?.bPendientePagos?.value = false
+            binding.viewmodel?.bPlanPago?.value = false
         })
     }
 

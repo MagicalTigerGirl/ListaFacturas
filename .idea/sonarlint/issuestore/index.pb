@@ -13,3 +13,17 @@ Dapp/src/main/java/com/example/listafacturas/data/FacturasDatabase.kt,0\6\069a8
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 u
 Eapp/src/main/java/com/example/listafacturas/data/FacturaRepository.kt,6\9\69ef199f6c43d828e44f3c384ca8f9e0a5b5af32
+w
+Gapp/src/main/java/com/example/listafacturas/ui/activity/MainActivity.kt,6\d\6d9fe8f48cb4d3ac59a4b99d983002b7f075f3ce
+}
+Mapp/src/main/java/com/example/listafacturas/ui/application/MainApplication.kt,7\f\7fa8557b28ba41ac1409831b3cc0af22fdbae566
+
+Oapp/src/main/java/com/example/listafacturas/ui/basedialog/BaseDialogFragment.kt,6\6\664f8b6b8c24261ddc1421df30a61e69ad3bb93a
+x
+Happ/src/main/java/com/example/listafacturas/ui/fragment/FirstFragment.kt,d\c\dc2cde9eadbf80a6b0fc603c68b5fc47dd280c3b
+u
+Eapp/src/main/java/com/example/listafacturas/viewmodel/FilterResult.kt,4\4\44ad0f985e32d4bb9ec3d0a8793831243bb0bf01
+v
+Fapp/src/main/java/com/example/listafacturas/viewmodel/StateDataList.kt,e\c\ecd25a766bf6c9de33a508f365bf8eecc73b690a
+z
+Japp/src/main/java/com/example/listafacturas/viewmodel/StateLiveDataList.kt,2\8\28d5a89caff1383336c2518f92f912fb75a05619
