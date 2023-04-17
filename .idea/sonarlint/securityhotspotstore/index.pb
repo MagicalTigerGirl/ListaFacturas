@@ -21,9 +21,3 @@ Gapp/src/main/java/com/example/listafacturas/ui/activity/MainActivity.kt,6\d\6d
 Mapp/src/main/java/com/example/listafacturas/ui/application/MainApplication.kt,7\f\7fa8557b28ba41ac1409831b3cc0af22fdbae566
 
 Oapp/src/main/java/com/example/listafacturas/ui/basedialog/BaseDialogFragment.kt,6\6\664f8b6b8c24261ddc1421df30a61e69ad3bb93a
-x
-Happ/src/main/java/com/example/listafacturas/ui/fragment/FirstFragment.kt,d\c\dc2cde9eadbf80a6b0fc603c68b5fc47dd280c3b
-v
-Fapp/src/main/java/com/example/listafacturas/viewmodel/StateDataList.kt,e\c\ecd25a766bf6c9de33a508f365bf8eecc73b690a
-z
-Japp/src/main/java/com/example/listafacturas/viewmodel/StateLiveDataList.kt,2\8\28d5a89caff1383336c2518f92f912fb75a05619

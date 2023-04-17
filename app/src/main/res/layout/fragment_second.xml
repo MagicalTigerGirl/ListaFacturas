@@ -68,7 +68,7 @@
             android:layout_marginStart="96dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/gray"
-            android:text="@={viewmodel.fechaDesde}"
+            android:text="@={viewmodel.fechaHasta}"
             android:textAllCaps="false"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,6 +6,7 @@ class StateDataList<T> {
         LOADING,
         NODATA,
         SUCCESS,
+        ERROR
     }
 
     var state: DataState

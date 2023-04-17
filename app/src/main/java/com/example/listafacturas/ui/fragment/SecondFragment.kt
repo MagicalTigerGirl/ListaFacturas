@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.*
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.listafacturas.R
@@ -25,35 +28,17 @@ class SecondFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_second_fragment, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_close -> {
-                NavHostFragment.findNavController(this).navigateUp()
-                true
-            }
-            else -> false
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initMenu()
 
         initViewModel()
 
@@ -102,6 +87,26 @@ class SecondFragment : Fragment() {
         })
     }
 
+    private fun initMenu() {
+        val menu: MenuHost = requireActivity()
+
+        menu.addMenuProvider(object: MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_second_fragment, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_close -> {
+                        NavHostFragment.findNavController(this@SecondFragment).navigateUp()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
     private fun initSeekBar() {
         val importeMax = FacturaRepository.importeMaximo.toInt()
         binding.sbImporte.max = importeMax
@@ -109,7 +114,7 @@ class SecondFragment : Fragment() {
 
         val importeProgress = viewModel.importeMaxSelected
         binding.sbImporte.progress = importeProgress
-        binding.tvImporte.text = ("0€ - $importeProgress €")
+        binding.tvImporte.text = getString(R.string.rango_importe, importeProgress.toString())
 
         binding.sbImporte.setOnSeekBarChangeListener(
             object : OnSeekBarChangeListener {
@@ -123,7 +128,7 @@ class SecondFragment : Fragment() {
                     seekBar: SeekBar, progress: Int,
                     fromUser: Boolean
                 ) {
-                    binding.tvImporte.text = ("0€ - $progress €")
+                    binding.tvImporte.text = getString(R.string.rango_importe, progress.toString())
                 }
             }
         )
@@ -139,7 +144,7 @@ class SecondFragment : Fragment() {
                 val month = monthOfYear+1
                 val months = if (month < 10) "0${month}" else "${month}"
 
-                binding.btnDateDesde.text = ("$days/$months/$year")
+                binding.btnDateDesde.text = getString(R.string.date, days, months, year.toString())
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
 
             popup.datePicker.maxDate = Calendar.getInstance().timeInMillis
@@ -156,11 +161,11 @@ class SecondFragment : Fragment() {
                 val month = monthOfYear+1
                 val months = if (month < 10) "0${month}" else "${month}"
 
-                binding.btnDateHasta.text = ("$days/$months/$year")
+                binding.btnDateHasta.text = getString(R.string.date, days, months, year.toString())
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
 
             if (!binding.btnDateDesde.text.toString().equals("día/mes/año"))
-                popup.datePicker.minDate = SimpleDateFormat("dd/MM/yyyy").parse(binding.btnDateDesde.text.toString() ).time
+                popup.datePicker.minDate = SimpleDateFormat("dd/MM/yyyy").parse(binding.btnDateDesde.text.toString() )!!.time
             popup.show()
         })
     }

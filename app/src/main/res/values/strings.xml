@@ -26,4 +26,6 @@
     <string name="btn_aplicar">Aplicar</string>
     <string name="btn_eliminar_filtros">Eliminar filtros</string>
     <string name="no_datos">NO HAY DATOS</string>
+    <string name="rango_importe">0€ - %1$s €</string>
+    <string name="date">%1$s/%2$s/%3$s</string>
 </resources>
