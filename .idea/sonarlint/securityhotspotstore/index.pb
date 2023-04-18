@@ -23,3 +23,13 @@ F
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 q
 Aapp/src/main/java/com/example/listafacturas/data/model/Factura.kt,0\9\09ea4f722441e64058a62a41fc24e99f082ee668
+r
+Bapp/src/main/java/com/example/listafacturas/data/dao/FacturaDao.kt,a\c\ac2b7f45e06b8310c5d6557d078c43fd6ddbf848
+x
+Happ/src/main/java/com/example/listafacturas/ui/fragment/FirstFragment.kt,d\c\dc2cde9eadbf80a6b0fc603c68b5fc47dd280c3b
+
+Oapp/src/main/java/com/example/listafacturas/ui/basedialog/BaseDialogFragment.kt,6\6\664f8b6b8c24261ddc1421df30a61e69ad3bb93a
+X
+(gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
+A
+gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4

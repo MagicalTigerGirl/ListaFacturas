@@ -1,13 +1,17 @@
 package com.example.listafacturas.domain
 
+import android.content.Context
+import android.support.test.InstrumentationRegistry
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
 import com.example.listafacturas.data.FacturaRepository
+import com.example.listafacturas.data.FacturasDatabase
 import com.example.listafacturas.data.model.Factura
+import com.example.listafacturas.ui.application.MainApplication
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.impl.stub.StubRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -18,10 +22,18 @@ internal class GetFacturasUseCaseTest {
     private lateinit var facturaRepository: FacturaRepository
 
     lateinit var getFacturasUseCase: GetFacturasUseCase
+    lateinit var facturasDatabase: FacturasDatabase
+    lateinit var appContext: Context
 
     @Before
     fun onBefore() {
         MockKAnnotations.init(this)
+        appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+        facturasDatabase = Room.inMemoryDatabaseBuilder(
+            appContext, FacturasDatabase::class.java
+        ).allowMainThreadQueries().build()
+
         getFacturasUseCase = GetFacturasUseCase()
     }
 
