@@ -2,6 +2,7 @@ package com.example.listafacturas.domain
 
 import android.content.Context
 import android.support.test.InstrumentationRegistry
+import android.support.test.runner.AndroidJUnit4
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.example.listafacturas.data.FacturaRepository
@@ -15,26 +16,25 @@ import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
+@RunWith(AndroidJUnit4::class)
 internal class GetFacturasUseCaseTest {
 
     @RelaxedMockK
     private lateinit var facturaRepository: FacturaRepository
 
     lateinit var getFacturasUseCase: GetFacturasUseCase
-    lateinit var facturasDatabase: FacturasDatabase
-    lateinit var appContext: Context
+    lateinit var context: Context
 
     @Before
     fun onBefore() {
         MockKAnnotations.init(this)
-        appContext = InstrumentationRegistry.getInstrumentation().targetContext
-
-        facturasDatabase = Room.inMemoryDatabaseBuilder(
-            appContext, FacturasDatabase::class.java
-        ).allowMainThreadQueries().build()
 
         getFacturasUseCase = GetFacturasUseCase()
+        context = ApplicationProvider.getApplicationContext()
+        FacturasDatabase.create(context)
     }
 
     @Test

@@ -34,7 +34,6 @@ class FacturaViewModel: ViewModel() {
         liveDataList.setLoading()
 
         viewModelScope.launch {
-
             if (isFiltered) {
                 val filteredList: List<Factura>
                 when (result.value) {

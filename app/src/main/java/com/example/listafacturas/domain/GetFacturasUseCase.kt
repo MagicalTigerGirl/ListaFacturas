@@ -1,7 +1,9 @@
 package com.example.listafacturas.domain
 
+import android.support.test.runner.AndroidJUnit4
 import com.example.listafacturas.data.FacturaRepository
 import com.example.listafacturas.data.model.Factura
+import org.junit.runner.RunWith
 
 class GetFacturasUseCase {
 
